@@ -52,6 +52,35 @@ class Public_Portfolio_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 
+		$this->admin_load_dependencies();
+		if ( class_exists( 'Public_Portfolio_Admin_Display' ) ) {
+			new Public_Portfolio_Admin_Display();
+		}
+
+	}
+	
+	/**
+	 * Load the required dependencies for this plugin.
+	 *
+	 * Include the following files that make up the plugin:
+	 *
+	 * - Public_Popularity_Loader. Orchestrates the hooks of the plugin.
+	 * - Public_Popularity_i18n. Defines internationalization functionality.
+	 * - Public_Popularity_Admin. Defines all hooks for the admin area.
+	 * - Public_Popularity_Public. Defines all hooks for the public side of the site.
+	 *
+	 * Create an instance of the loader which will be used to register the hooks
+	 * with WordPress.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function admin_load_dependencies() {
+		/**
+		 * The class responsible for orchestrating the actions and filters of the
+		 * core plugin.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/public-portfolio-admin-display.php';
 	}
 
 	/**
