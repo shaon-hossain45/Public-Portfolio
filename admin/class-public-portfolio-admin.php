@@ -126,6 +126,7 @@ class Public_Portfolio_Admin {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/public-portfolio-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'cmb-media', plugin_dir_url( __FILE__ ) . 'js/cmb-media.js', array( 'jquery' ), '', true );
 
 	}
 

@@ -39,7 +39,7 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 
 		public function wporg_custom_box_html( $post ) {
 			$value = get_post_meta( $post->ID, '_wporg_meta_key', true );
-			//var_dump($value);
+			var_dump( $value );
 			?>
 
 <div class="csf-field csf-field-select">
@@ -47,9 +47,27 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 	<div class="csf-fieldset">
 		<select name="_prefix_custom_options[opt-select-1]" data-depend-id="opt-select-1" placeholder="Select an option">
 			<option value="">Select an option</option>
-			<option value="opt-1">Website</option>
-			<option value="opt-2">Logo</option>
-			<option value="opt-3">Social Marketing</option>
+			<option value="opt-1" 
+			<?php
+			if ( isset($value['opt-select-1']) && $value['opt-select-1'] == 'opt-1' ) {
+				echo 'selected="selected"';
+			};
+			?>
+			>Website</option>
+			<option value="opt-2" 
+			<?php
+			if ( isset($value['opt-select-1']) && $value['opt-select-1'] == 'opt-2' ) {
+				echo 'selected="selected"';
+			};
+			?>
+			>Logo</option>
+			<option value="opt-3" 
+			<?php
+			if ( isset($value['opt-select-1']) && $value['opt-select-1'] == 'opt-3' ) {
+				echo 'selected="selected"';
+			};
+			?>
+			>Social Marketing</option>
 		</select>
 	</div>
 	<div class="clear"></div>
@@ -57,14 +75,22 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 <div class="csf-field csf-field-text">
 	<div class="csf-title"><h4>Project Location</h4></div>
 	<div class="csf-fieldset">
-		<input type="text" name="_prefix_custom_options[opt-textloc]" value="" data-depend-id="opt-text" class="">
+		<input type="text" name="_prefix_custom_options[opt-textloc]" value="<?php
+			if ( isset($value['opt-textloc'])) {
+				echo $value['opt-textloc'];
+			};
+			?>" data-depend-id="opt-text" class="">
 	</div>
 	<div class="clear"></div>
 </div>
 <div class="csf-field csf-field-textarea">
 	<div class="csf-title"><h4>Project Description</h4></div>
 	<div class="csf-fieldset">
-		<textarea name="_prefix_custom_options[opt-textarea]" data-depend-id="opt-textarea"></textarea>
+		<textarea name="_prefix_custom_options[opt-textarea]" data-depend-id="opt-textarea"><?php
+			if ( isset($value['opt-textarea'])) {
+				echo $value['opt-textarea'];
+			};
+			?></textarea>
 		<div class="csf-help"><span class="csf-help-text">The help text of the field.</span><i class="fas fa-question-circle"></i></div>
 	</div>
 	<div class="clear"></div>
@@ -72,39 +98,47 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 <div class="csf-field csf-field-text">
 	<div class="csf-title"><h4>Project Author</h4></div>
 	<div class="csf-fieldset">
-		<input type="text" name="_prefix_custom_options[opt-textaut]" value="" data-depend-id="opt-text" class="">
+		<input type="text" name="_prefix_custom_options[opt-textaut]" value="<?php
+			if ( isset($value['opt-textaut'])) {
+				echo $value['opt-textaut'];
+			};
+			?>" data-depend-id="opt-text" class="">
 	</div>
 	<div class="clear"></div>
 </div>
 <div class="csf-field csf-field-text">
 	<div class="csf-title"><h4>Project Link</h4></div>
 	<div class="csf-fieldset">
-		<input type="text" name="_prefix_custom_options[opt-textlin]" value="" data-depend-id="opt-text" class="">
+		<input type="text" name="_prefix_custom_options[opt-textlin]" value="<?php
+			if ( isset($value['opt-textlin'])) {
+				echo $value['opt-textlin'];
+			};
+			?>" data-depend-id="opt-text" class="">
 	</div>
 	<div class="clear"></div>
 </div>
 
-<!-- <div class="csf-field csf-field-media">
+<div class="csf-field csf-field-media">
 	<div class="csf-title"><h4>Project Media (Web)</h4></div>
 	<div class="csf-fieldset">
 		<div class="csf--preview hidden">
 			<div class="csf-image-preview"><a href="#" class="csf--remove fas fa-times"></a><img src="" class="csf--src"></div>
 		</div>
 		<div class="csf--placeholder">
-			<input type="text" name="_prefix_custom_options[opt-media-1][url]" value="" class="csf--url" readonly="readonly" data-depend-id="opt-media-1" placeholder="Not selected">
-			<a href="#" class="button button-primary csf--button" data-library="" data-preview-size="thumbnail">Upload</a>
+			<input type="text" name="_prefix_custom_options[opt-media-1][url]" id="meta-image" value="" class="csf--url" readonly="readonly" data-depend-id="opt-media-1" placeholder="Not selected">
+			<a class="button button-primary csf--button" id="meta-image-button" data-library="" data-preview-size="thumbnail">Upload</a>
 		</div>
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][id]" value="" class="csf--id">
+		<!-- <input type="hidden" name="_prefix_custom_options[opt-media-1][id]" value="" class="csf--id">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][width]" value="" class="csf--width">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][height]" value="" class="csf--height">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][thumbnail]" value="" class="csf--thumbnail">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][alt]" value="" class="csf--alt">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][title]" value="" class="csf--title">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][description]" value="" class="csf--description">
+		<input type="hidden" name="_prefix_custom_options[opt-media-1][description]" value="" class="csf--description"> -->
 	</div>
 	<div class="clear"></div>
 </div>
-<div class="csf-field csf-field-media">
+<!-- <div class="csf-field csf-field-media">
 	<div class="csf-title"><h4>Project Media (Tablet)</h4></div>
 	<div class="csf-fieldset">
 		<div class="csf--preview hidden">
