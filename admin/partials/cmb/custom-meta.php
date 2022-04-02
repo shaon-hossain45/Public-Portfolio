@@ -126,7 +126,7 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 		</div>
 		<div class="csf--placeholder">
 			<input type="text" name="_prefix_custom_options[opt-media-1][url]" id="meta-image" value="" class="csf--url" readonly="readonly" data-depend-id="opt-media-1" placeholder="Not selected">
-			<a class="button button-primary csf--button" id="meta-image-button" data-library="" data-preview-size="thumbnail">Upload</a>
+			<a class="button button-primary csf--button" id="meta-image-buttonw" onclick="return media_open_btn(15)" data-library="" data-preview-size="thumbnail">Upload</a>
 		</div>
 		<!-- <input type="hidden" name="_prefix_custom_options[opt-media-1][id]" value="" class="csf--id">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][width]" value="" class="csf--width">
@@ -138,7 +138,7 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 	</div>
 	<div class="clear"></div>
 </div>
-<!-- <div class="csf-field csf-field-media">
+<div class="csf-field csf-field-media">
 	<div class="csf-title"><h4>Project Media (Tablet)</h4></div>
 	<div class="csf-fieldset">
 		<div class="csf--preview hidden">
@@ -146,15 +146,15 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 		</div>
 		<div class="csf--placeholder">
 			<input type="text" name="_prefix_custom_options[opt-media-1][url]" value="" class="csf--url" readonly="readonly" data-depend-id="opt-media-1" placeholder="Not selected">
-			<a href="#" class="button button-primary csf--button" data-library="" data-preview-size="thumbnail">Upload</a>
+			<a href="#" class="button button-primary csf--button" id="meta-image-buttont" data-library="" data-preview-size="thumbnail">Upload</a>
 		</div>
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][id]" value="" class="csf--id">
+		<!-- <input type="hidden" name="_prefix_custom_options[opt-media-1][id]" value="" class="csf--id">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][width]" value="" class="csf--width">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][height]" value="" class="csf--height">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][thumbnail]" value="" class="csf--thumbnail">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][alt]" value="" class="csf--alt">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][title]" value="" class="csf--title">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][description]" value="" class="csf--description">
+		<input type="hidden" name="_prefix_custom_options[opt-media-1][description]" value="" class="csf--description"> -->
 	</div>
 	<div class="clear"></div>
 </div>
@@ -166,18 +166,18 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 		</div>
 		<div class="csf--placeholder">
 			<input type="text" name="_prefix_custom_options[opt-media-1][url]" value="" class="csf--url" readonly="readonly" data-depend-id="opt-media-1" placeholder="Not selected">
-			<a href="#" class="button button-primary csf--button" data-library="" data-preview-size="thumbnail">Upload</a>
+			<a href="#" class="button button-primary csf--button" id="meta-image-buttonm" data-library="" data-preview-size="thumbnail">Upload</a>
 		</div>
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][id]" value="" class="csf--id">
+		<!-- <input type="hidden" name="_prefix_custom_options[opt-media-1][id]" value="" class="csf--id">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][width]" value="" class="csf--width">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][height]" value="" class="csf--height">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][thumbnail]" value="" class="csf--thumbnail">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][alt]" value="" class="csf--alt">
 		<input type="hidden" name="_prefix_custom_options[opt-media-1][title]" value="" class="csf--title">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][description]" value="" class="csf--description">
+		<input type="hidden" name="_prefix_custom_options[opt-media-1][description]" value="" class="csf--description"> -->
 	</div>
 	<div class="clear"></div>
-</div> -->
+</div>
 
 			<?php
 		}

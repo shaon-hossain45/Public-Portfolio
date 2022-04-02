@@ -33,7 +33,7 @@
     var meta_image_frame;
 
     // Runs when the image button is clicked.
-    $('#meta-image-button').click(function(e) {
+    $('#meta-image-buttonwjjj').click(function(e) {
 
         // Prevents the default action from occuring.
         e.preventDefault();
