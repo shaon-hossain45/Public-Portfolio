@@ -52,6 +52,34 @@ class Public_Portfolio_Public {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 
+		$this->public_load_dependencies();
+		if ( class_exists( 'Public_Portfolio_public_Display' ) ) {
+			new Public_Portfolio_public_Display();
+		}
+	}
+
+	/**
+	 * Load the required dependencies for this plugin.
+	 *
+	 * Include the following files that make up the plugin:
+	 *
+	 * - Public_Popularity_Loader. Orchestrates the hooks of the plugin.
+	 * - Public_Popularity_i18n. Defines internationalization functionality.
+	 * - Public_Popularity_Admin. Defines all hooks for the admin area.
+	 * - Public_Popularity_Public. Defines all hooks for the public side of the site.
+	 *
+	 * Create an instance of the loader which will be used to register the hooks
+	 * with WordPress.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function public_load_dependencies() {
+		/**
+		 * The class responsible for orchestrating the actions and filters of the
+		 * core plugin.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/public-portfolio-public-display.php';
 	}
 
 	/**
@@ -95,6 +123,9 @@ class Public_Portfolio_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+
+		wp_enqueue_script( 'nicescroll', plugin_dir_url( __FILE__ ) . 'assets/jquery.nicescroll-master/jquery.nicescroll.min.js', array( 'jquery' ), true );
+		wp_enqueue_script( 'isotope', plugin_dir_url( __FILE__ ) . 'assets/isotope-docs/isotope.pkgd.min.js', array( 'jquery' ), true );
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/public-portfolio-public.js', array( 'jquery' ), $this->version, false );
 

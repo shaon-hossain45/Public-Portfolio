@@ -30,8 +30,3 @@
      */
 
 })(jQuery);
-
-function media_open_btn() {
-    alert("onlllll");
-    return false;
-}

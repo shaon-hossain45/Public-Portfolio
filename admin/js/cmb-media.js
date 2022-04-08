@@ -30,14 +30,21 @@
      */
 
     // Instantiates the variable that holds the media library frame.
-    var meta_image_frame;
 
     // Runs when the image button is clicked.
-    $('#meta-image-buttonwjjj').click(function(e) {
+    $('.csf--button').on('click', function(e) {
 
         // Prevents the default action from occuring.
         e.preventDefault();
 
+        var $upload_button = $(this),
+            $library = $upload_button.data('library') && $upload_button.data('library').split(',') || '',
+            meta_image_frame;
+
+        //console.log(currentPath);
+        if (typeof window.wp === 'undefined' || !window.wp.media || !window.wp.media.gallery) {
+            return;
+        }
         // If the frame already exists, re-open it.
         if (meta_image_frame) {
             meta_image_frame.open();
@@ -57,15 +64,137 @@
         // Runs when an image is selected.
         meta_image_frame.on('select', function() {
 
+            if ($library.length && $library.indexOf(attributes.subtype) === -1 && $library.indexOf(attributes.type) === -1) {
+                return;
+            }
+
             // Grabs the attachment selection and creates a JSON representation of the model.
             var media_attachment = meta_image_frame.state().get('selection').first().toJSON();
 
             // Sends the attachment URL to our custom image input field.
-            $('#meta-image').val(media_attachment.url);
+            $upload_button.parent().find('.csf--url').val(media_attachment.url).trigger('change');
+            $this.find('.csf--preview').removeClass('hidden');
         });
 
         // Opens the media library frame.
         meta_image_frame.open();
     });
 
+
+
+    $('.csf--remove').on('click', function(e) {
+
+        alert("hiii");
+
+        // Prevents the default action from occuring.
+        e.preventDefault();
+
+        var $remove_button = $(this);
+
+        $remove_button.closest('.csf-fieldset').find('.csf--preview').addClass('hidden');
+        $remove_button.closest('.csf-fieldset').find('input').val('');
+        $remove_button.addClass('hidden');
+        $remove_button.closest('.csf-fieldset').find('.csf--remove').addClass('hidden');
+        $remove_button.closest('.csf-fieldset').find('.csf--url').trigger('change');
+
+    });
+
 })(jQuery);
+
+
+//
+// Field: media
+//
+// $.fn.csf_field_media = function() {
+//     return this.each(function() {
+
+//         var $this = $(this),
+//             $upload_button = $this.find('.csf--button'),
+//             $remove_button = $this.find('.csf--remove'),
+//             $library = $upload_button.data('library') && $upload_button.data('library').split(',') || '',
+//             $auto_attributes = ($this.hasClass('csf-assign-field-background')) ? $this.closest('.csf-field-background').find('.csf--auto-attributes') : false,
+//             wp_media_frame;
+
+//         $upload_button.on('click', function(e) {
+
+//             e.preventDefault();
+
+//             if (typeof window.wp === 'undefined' || !window.wp.media || !window.wp.media.gallery) {
+//                 return;
+//             }
+
+//             if (wp_media_frame) {
+//                 wp_media_frame.open();
+//                 return;
+//             }
+
+//             wp_media_frame = window.wp.media({
+//                 library: {
+//                     type: $library
+//                 }
+//             });
+
+//             wp_media_frame.on('select', function() {
+
+//                 var thumbnail;
+//                 var attributes = wp_media_frame.state().get('selection').first().attributes;
+//                 var preview_size = $upload_button.data('preview-size') || 'thumbnail';
+
+//                 if ($library.length && $library.indexOf(attributes.subtype) === -1 && $library.indexOf(attributes.type) === -1) {
+//                     return;
+//                 }
+
+//                 $this.find('.csf--id').val(attributes.id);
+//                 $this.find('.csf--width').val(attributes.width);
+//                 $this.find('.csf--height').val(attributes.height);
+//                 $this.find('.csf--alt').val(attributes.alt);
+//                 $this.find('.csf--title').val(attributes.title);
+//                 $this.find('.csf--description').val(attributes.description);
+
+//                 if (typeof attributes.sizes !== 'undefined' && typeof attributes.sizes.thumbnail !== 'undefined' && preview_size === 'thumbnail') {
+//                     thumbnail = attributes.sizes.thumbnail.url;
+//                 } else if (typeof attributes.sizes !== 'undefined' && typeof attributes.sizes.full !== 'undefined') {
+//                     thumbnail = attributes.sizes.full.url;
+//                 } else if (attributes.type === 'image') {
+//                     thumbnail = attributes.url;
+//                 } else {
+//                     thumbnail = attributes.icon;
+//                 }
+
+//                 console.log(attributes);
+
+//                 if ($auto_attributes) {
+//                     $auto_attributes.removeClass('csf--attributes-hidden');
+//                 }
+
+//                 $remove_button.removeClass('hidden');
+
+//                 $this.find('.csf--preview').removeClass('hidden');
+//                 $this.find('.csf--src').attr('src', thumbnail);
+//                 $this.find('.csf--thumbnail').val(thumbnail);
+//                 $this.find('.csf--url').val(attributes.url).trigger('change');
+
+//             });
+
+//             wp_media_frame.open();
+
+//         });
+
+//         $remove_button.on('click', function(e) {
+
+//             e.preventDefault();
+
+//             if ($auto_attributes) {
+//                 $auto_attributes.addClass('csf--attributes-hidden');
+//             }
+
+//             $remove_button.addClass('hidden');
+//             $this.find('input').val('');
+//             $this.find('.csf--preview').addClass('hidden');
+//             $this.find('.csf--url').trigger('change');
+
+//         });
+
+//     });
+
+// };

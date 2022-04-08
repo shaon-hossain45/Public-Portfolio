@@ -25,6 +25,13 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 			add_action( 'save_post', array( $this, 'wporg_save_postdata' ) );
 		}
 
+		/**
+		 * Initialize the class and set its properties.
+		 *
+		 * @since    1.0.0
+		 * @param      string $plugin_name       The name of this plugin.
+		 * @param      string $version    The version of this plugin.
+		 */
 		public function wporg_add_custom_box() {
 			$screens = array( 'public_portfolio' );
 			foreach ( $screens as $screen ) {
@@ -37,6 +44,13 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 			}
 		}
 
+		/**
+		 * Initialize the class and set its properties.
+		 *
+		 * @since    1.0.0
+		 * @param      string $plugin_name       The name of this plugin.
+		 * @param      string $version    The version of this plugin.
+		 */
 		public function wporg_custom_box_html( $post ) {
 			$value = get_post_meta( $post->ID, '_wporg_meta_key', true );
 			var_dump( $value );
@@ -47,27 +61,21 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 	<div class="csf-fieldset">
 		<select name="_prefix_custom_options[opt-select-1]" data-depend-id="opt-select-1" placeholder="Select an option">
 			<option value="">Select an option</option>
-			<option value="opt-1" 
-			<?php
-			if ( isset($value['opt-select-1']) && $value['opt-select-1'] == 'opt-1' ) {
+			<option value="opt-1" <?php
+			if ( isset( $value['opt-select-1'] ) && $value['opt-select-1'] == 'opt-1' ) {
 				echo 'selected="selected"';
 			};
-			?>
-			>Website</option>
-			<option value="opt-2" 
-			<?php
-			if ( isset($value['opt-select-1']) && $value['opt-select-1'] == 'opt-2' ) {
+			?>>Website</option>
+			<option value="opt-2" <?php
+			if ( isset( $value['opt-select-1'] ) && $value['opt-select-1'] == 'opt-2' ) {
 				echo 'selected="selected"';
 			};
-			?>
-			>Logo</option>
-			<option value="opt-3" 
-			<?php
-			if ( isset($value['opt-select-1']) && $value['opt-select-1'] == 'opt-3' ) {
+			?>>Logo</option>
+			<option value="opt-3" <?php
+			if ( isset( $value['opt-select-1'] ) && $value['opt-select-1'] == 'opt-3' ) {
 				echo 'selected="selected"';
 			};
-			?>
-			>Social Marketing</option>
+			?>>Social Marketing</option>
 		</select>
 	</div>
 	<div class="clear"></div>
@@ -76,7 +84,7 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 	<div class="csf-title"><h4>Project Location</h4></div>
 	<div class="csf-fieldset">
 		<input type="text" name="_prefix_custom_options[opt-textloc]" value="<?php
-			if ( isset($value['opt-textloc'])) {
+			if ( isset( $value['opt-textloc'] ) ) {
 				echo $value['opt-textloc'];
 			};
 			?>" data-depend-id="opt-text" class="">
@@ -87,7 +95,7 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 	<div class="csf-title"><h4>Project Description</h4></div>
 	<div class="csf-fieldset">
 		<textarea name="_prefix_custom_options[opt-textarea]" data-depend-id="opt-textarea"><?php
-			if ( isset($value['opt-textarea'])) {
+			if ( isset( $value['opt-textarea'] ) ) {
 				echo $value['opt-textarea'];
 			};
 			?></textarea>
@@ -99,7 +107,7 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 	<div class="csf-title"><h4>Project Author</h4></div>
 	<div class="csf-fieldset">
 		<input type="text" name="_prefix_custom_options[opt-textaut]" value="<?php
-			if ( isset($value['opt-textaut'])) {
+			if ( isset( $value['opt-textaut'] ) ) {
 				echo $value['opt-textaut'];
 			};
 			?>" data-depend-id="opt-text" class="">
@@ -110,7 +118,7 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 	<div class="csf-title"><h4>Project Link</h4></div>
 	<div class="csf-fieldset">
 		<input type="text" name="_prefix_custom_options[opt-textlin]" value="<?php
-			if ( isset($value['opt-textlin'])) {
+			if ( isset( $value['opt-textlin'] ) ) {
 				echo $value['opt-textlin'];
 			};
 			?>" data-depend-id="opt-text" class="">
@@ -121,60 +129,90 @@ if ( ! class_exists( 'CmbBaseSetup' ) ) {
 <div class="csf-field csf-field-media">
 	<div class="csf-title"><h4>Project Media (Web)</h4></div>
 	<div class="csf-fieldset">
-		<div class="csf--preview hidden">
-			<div class="csf-image-preview"><a href="#" class="csf--remove fas fa-times"></a><img src="" class="csf--src"></div>
+		<div class="csf--preview <?php
+			if ( isset( $value['opt-media1'] ) && ( empty( $value['opt-media1'] ) ) ) {
+				echo 'hidden';
+			};
+			?>">
+			<div class="csf-image-preview"><a href="#" class="csf--remove fas fa-times"></a><img src="<?php
+			if ( isset( $value['opt-media1'] ) ) {
+				echo $value['opt-media1'];
+			};
+			?>" class="csf--src"></div>
 		</div>
 		<div class="csf--placeholder">
-			<input type="text" name="_prefix_custom_options[opt-media-1][url]" id="meta-image" value="" class="csf--url" readonly="readonly" data-depend-id="opt-media-1" placeholder="Not selected">
-			<a class="button button-primary csf--button" id="meta-image-buttonw" onclick="return media_open_btn(15)" data-library="" data-preview-size="thumbnail">Upload</a>
+			<input type="text" name="_prefix_custom_options[opt-media1]" id="meta-image" value="<?php
+			if ( isset( $value['opt-media1'] ) ) {
+				echo $value['opt-media1'];
+			};
+			?>" class="csf--url" readonly="readonly" data-depend-id="opt-media-1" placeholder="Not selected">
+			<a class="button button-primary csf--button" data-library="" data-preview-size="thumbnail">Upload</a>
+			<a href="#" class="button button-secondary csf-warning-primary csf--remove <?php
+			if ( isset( $value['opt-media1'] ) && ( empty( $value['opt-media1'] ) ) ) {
+				echo 'hidden';
+			};
+			?>">Remove</a>
 		</div>
-		<!-- <input type="hidden" name="_prefix_custom_options[opt-media-1][id]" value="" class="csf--id">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][width]" value="" class="csf--width">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][height]" value="" class="csf--height">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][thumbnail]" value="" class="csf--thumbnail">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][alt]" value="" class="csf--alt">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][title]" value="" class="csf--title">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][description]" value="" class="csf--description"> -->
 	</div>
 	<div class="clear"></div>
 </div>
 <div class="csf-field csf-field-media">
 	<div class="csf-title"><h4>Project Media (Tablet)</h4></div>
 	<div class="csf-fieldset">
-		<div class="csf--preview hidden">
-			<div class="csf-image-preview"><a href="#" class="csf--remove fas fa-times"></a><img src="" class="csf--src"></div>
+		<div class="csf--preview <?php
+			if ( isset( $value['opt-media2'] ) && ( empty( $value['opt-media2'] ) ) ) {
+				echo 'hidden';
+			};
+			?>">
+			<div class="csf-image-preview"><a href="#" class="csf--remove fas fa-times"></a><img src="<?php
+			if ( isset( $value['opt-media2'] ) ) {
+				echo $value['opt-media2'];
+			};
+			?>" class="csf--src"></div>
 		</div>
 		<div class="csf--placeholder">
-			<input type="text" name="_prefix_custom_options[opt-media-1][url]" value="" class="csf--url" readonly="readonly" data-depend-id="opt-media-1" placeholder="Not selected">
-			<a href="#" class="button button-primary csf--button" id="meta-image-buttont" data-library="" data-preview-size="thumbnail">Upload</a>
+			<input type="text" name="_prefix_custom_options[opt-media2]" value="<?php
+			if ( isset( $value['opt-media2'] ) ) {
+				echo $value['opt-media2'];
+			};
+			?>" class="csf--url" readonly="readonly" data-depend-id="opt-media-2" placeholder="Not selected">
+			<a href="#" class="button button-primary csf--button" data-library="" data-preview-size="thumbnail">Upload</a>
+			<a href="#" class="button button-secondary csf-warning-primary csf--remove <?php
+			if ( isset( $value['opt-media2'] ) && ( empty( $value['opt-media2'] ) ) ) {
+				echo 'hidden';
+			};
+			?>">Remove</a>
 		</div>
-		<!-- <input type="hidden" name="_prefix_custom_options[opt-media-1][id]" value="" class="csf--id">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][width]" value="" class="csf--width">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][height]" value="" class="csf--height">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][thumbnail]" value="" class="csf--thumbnail">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][alt]" value="" class="csf--alt">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][title]" value="" class="csf--title">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][description]" value="" class="csf--description"> -->
 	</div>
 	<div class="clear"></div>
 </div>
 <div class="csf-field csf-field-media">
 	<div class="csf-title"><h4>Project Media (Mobile)</h4></div>
 	<div class="csf-fieldset">
-		<div class="csf--preview hidden">
-			<div class="csf-image-preview"><a href="#" class="csf--remove fas fa-times"></a><img src="" class="csf--src"></div>
+		<div class="csf--preview <?php
+			if ( isset( $value['opt-media3'] ) && ( empty( $value['opt-media3'] ) ) ) {
+				echo 'hidden';
+			};
+			?>">
+			<div class="csf-image-preview"><a href="#" class="csf--remove fas fa-times"></a><img src="<?php
+			if ( isset( $value['opt-media3'] ) ) {
+				echo $value['opt-media3'];
+			};
+			?>" class="csf--src"></div>
 		</div>
 		<div class="csf--placeholder">
-			<input type="text" name="_prefix_custom_options[opt-media-1][url]" value="" class="csf--url" readonly="readonly" data-depend-id="opt-media-1" placeholder="Not selected">
-			<a href="#" class="button button-primary csf--button" id="meta-image-buttonm" data-library="" data-preview-size="thumbnail">Upload</a>
+			<input type="text" name="_prefix_custom_options[opt-media3]" value="<?php
+			if ( isset( $value['opt-media3'] ) ) {
+				echo $value['opt-media3'];
+			};
+			?>" class="csf--url" readonly="readonly" data-depend-id="opt-media-3" placeholder="Not selected">
+			<a href="#" class="button button-primary csf--button" data-library="" data-preview-size="thumbnail">Upload</a>
+			<a href="#" class="button button-secondary csf-warning-primary csf--remove <?php
+			if ( isset( $value['opt-media3'] ) && ( empty( $value['opt-media3'] ) ) ) {
+				echo 'hidden';
+			};
+			?>">Remove</a>
 		</div>
-		<!-- <input type="hidden" name="_prefix_custom_options[opt-media-1][id]" value="" class="csf--id">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][width]" value="" class="csf--width">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][height]" value="" class="csf--height">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][thumbnail]" value="" class="csf--thumbnail">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][alt]" value="" class="csf--alt">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][title]" value="" class="csf--title">
-		<input type="hidden" name="_prefix_custom_options[opt-media-1][description]" value="" class="csf--description"> -->
 	</div>
 	<div class="clear"></div>
 </div>

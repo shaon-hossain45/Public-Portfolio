@@ -9,7 +9,7 @@
  * @package    public_plugin
  * @subpackage public_plugin/admin/partials
  */
-//namespace Inc;
+// namespace Inc;
 
 if ( ! class_exists( 'CptBaseSetup' ) ) {
 	class CptBaseSetup {
