@@ -29,7 +29,7 @@ if ( ! class_exists( 'outputBoxSetup' ) ) {
 
 		}
 
-        /**
+		/**
 		 * Initialize the class and set its properties.
 		 *
 		 * @since    1.0.0
@@ -39,61 +39,85 @@ if ( ! class_exists( 'outputBoxSetup' ) ) {
 		public function shortcode_boxed( $atts, $content = null, $tag = '' ) {
 			global $post;
 
-			$output = '';
+			$output  = '';
 			$output .= '<div id="acx_webex_body_content">
             <div class="section-custom common_padding">
                 <div class="acx_inside">
                     <div class="acx_common">';
 
-                    $output .= '<div class="acx_gallery_filtr ">
+			$output       .= '<div class="acx_gallery_filtr ">
 					<div class="acx_gal_filter_grp filters-button-group">
                         <a class="acx_button is-checked" data-filter="*">all works</a>';
-                        $tax_terms = get_terms( array(
-                            'taxonomy' => 'public_category',
-                            'orderby'    => 'count',
-                            'hide_empty' => true,
-                            'order'		=>'ASC'
-                        ));
-						<a class="acx_button" data-filter=".ok">ok</a>
-						<a class="acx_button" data-filter=".ikll">ikll</a>
+				$tax_terms = get_terms(
+					array(
+						'taxonomy'   => 'public_category',
+						'orderby'    => 'count',
+						'hide_empty' => true,
+						'order'      => 'ASC',
+					)
+				);
 
-                        $output .= '</div> <!-- acx_gal_filter_grp-->
+			foreach ( $tax_terms as $key => $term ) {
+				if ( $term->count > 0 ) {
+					$output .= '<a class="acx_button" data-filter=".' . $term->slug . '">' . $term->name . '</a>';
+				}
+			}
+
+				$output .= '</div> <!-- acx_gal_filter_grp-->
 				</div> <!-- acx_gallery_filtr -->';
 
-                $output .= '<div class="acx_gallery_wrk_cnvs">
-					<div class="acx_gal_wrk_split element-item ok" data-category="ok" style="position: absolute; left: 0px; top: 0px;">
-                        <div class="acx_gal_inner_split"><img src="http://localhost/wordpress-local/wp-content/uploads/2022/04/shutterstock_547563823-1024x1024-1.jpg"><span class="hover_bg">
-                        <div class="gal_hvr_cntnt">
-                        <div class="gal_link_hvr">
-                            <a onclick="acx_w_portfolio_opened(93);" class="gal_zoom"></a><a href="gfgf" class="gal_linkto"></a></div> <!-- gal_link_hvr -->
-                        <span class="gal_hvr_ttl"></span>
-                        </div> <!-- gal_hvr_cntnt-->
-                        </span>
-                        </div> <!-- acx_gal_inner_split-->
-                    </div> <!-- acx_gal_wrk_split-->
-					<div class="acx_gal_wrk_split element-item ok" data-category="ikll" style="position: absolute; left: 159.969px; top: 0px;">
-                        <div class="acx_gal_inner_split"><img src="http://localhost/wordpress-local/wp-content/uploads/2022/04/shutterstock_547563823-1024x1024-1.jpg"><span class="hover_bg">
-                        <div class="gal_hvr_cntnt">
-                        <div class="gal_link_hvr">
-                            <a onclick="acx_w_portfolio_opened(92);" class="gal_zoom"></a><a href="jhjhj" class="gal_linkto"></a></div> <!-- gal_link_hvr -->
-                        <span class="gal_hvr_ttl"></span>
-                        </div> <!-- gal_hvr_cntnt-->
-                        </span>
-                        </div> <!-- acx_gal_inner_split-->
-                    </div> <!-- acx_gal_wrk_split-->
-					<div class="acx_gal_wrk_split element-item ikll" data-category="ikll" style="position: absolute; left: 319.938px; top: 0px;">
-                        <div class="acx_gal_inner_split"><img src="http://localhost/wordpress-local/wp-content/uploads/2022/04/Background.jpg"><span class="hover_bg">
-                        <div class="gal_hvr_cntnt">
-                        <div class="gal_link_hvr">
-                            <a onclick="acx_w_portfolio_opened(89);" class="gal_zoom"></a><a href="popop" class="gal_linkto"></a></div> <!-- gal_link_hvr -->
-                        <span class="gal_hvr_ttl"></span>
-                        </div> <!-- gal_hvr_cntnt-->
-                        </span>
-                        </div> <!-- acx_gal_inner_split-->
-                    </div> <!-- acx_gal_wrk_split-->
-				</div> <!-- acx_gallery_wrk_cnvs -->';
+				$output .= '<div class="acx_gallery_wrk_cnvs">';
+			//foreach ( $tax_terms as $key => $term ) {
+				//if ( $term->count > 0 ) {
 
-                    $output .= '</div><!-- acx_common -->
+					$args = array(
+						'post_type'   => 'public_portfolio',
+						'post_status' => array( 'publish' ),
+					);
+
+					$the_query = new WP_Query( $args );
+
+					//var_dump( $the_query );
+
+					if ( $the_query->have_posts() ) :
+						while ( $the_query->have_posts() ) :
+							$the_query->the_post();
+
+							$acx_img =  wp_get_attachment_url( get_post_thumbnail_id($post->ID));
+
+							$taxonomies=get_taxonomies('','names');
+                			$tax_slug = wp_get_post_terms($post->ID, $taxonomies,  array("fields" => "all"));
+							$acx_count = count($tax_slug);
+
+							if($acx_count > 0) {
+								for($i= 0; $i< $acx_count ; $i++)
+								{
+									$elementcount = $tax_slug[$i]->slug;
+								   // echo " ";
+								   //var_dump($elementcount);
+								}
+							}
+
+							$output .= '<div class="acx_gal_wrk_split element-item '.$elementcount.'" data-category="'.$tax_slug[0]->slug.'">
+							<div class="acx_gal_inner_split"><img src="'.$acx_img.'">
+							<span class="hover_bg">
+							<div class="gal_hvr_cntnt">
+							<div class="gal_link_hvr">
+							<a onclick="acx_w_portfolio_opened(93);" class="gal_zoom"></a>
+							<a href="gfgf" class="gal_linkto"></a>
+							</div> <!-- gal_link_hvr -->
+							<span class="gal_hvr_ttl"></span>
+							</div> <!-- gal_hvr_cntnt-->
+							</span>
+							</div> <!-- acx_gal_inner_split-->
+							</div> <!-- acx_gal_wrk_split-->';
+						endwhile;
+					endif;
+				//}
+			//}
+			$output .= '</div> <!-- acx_gallery_wrk_cnvs -->';
+
+			$output .= '</div><!-- acx_common -->
         </div><!-- acx_inside -->
     </div><!-- section -->
 </div>';
